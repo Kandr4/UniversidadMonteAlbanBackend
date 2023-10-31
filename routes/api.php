@@ -10,3 +10,8 @@ Route::post('login', [
     App\Http\Controllers\Api\LoginController::class,
     'login'
 ]);
+
+Route::get('slider', [
+    App\Http\Controllers\Api\sliderController::class,
+    'showSlider'
+]);

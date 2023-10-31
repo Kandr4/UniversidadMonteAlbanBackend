@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class LoginController extends Controller
 {
@@ -15,9 +17,18 @@ class LoginController extends Controller
 
         //Login true
         if (Auth::attempt($request->only('username','password'))) {
-            return response()->json([
-                'cookie'=> $request->user()->createToken($request->username)->plainTextToken,
-                'role'=>'2' 
+            //Obtiene el usuario para obtener su rol
+            $usuario = User::where('username',$request->username)->first();
+            //Crea la sessionCookie
+            $token = Str::random(40);
+            //$sessionCookie = cookie('cookieSesion',$token,60);
+            //Guardando la cookie en la BD
+            $usuario->cookie = $token;
+            $usuario->save();
+            return response()
+            ->json([
+                'cookie'=> $token,
+                'role'=> $usuario->role, 
             ]);
         }
         //Login false
