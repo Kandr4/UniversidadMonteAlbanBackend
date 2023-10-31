@@ -15,3 +15,8 @@ Route::get('slider', [
     App\Http\Controllers\Api\sliderController::class,
     'showSlider'
 ]);
+
+Route::get('coment/{id_post}', [
+    App\Http\Controllers\Api\ComentController::class,
+    'obtenerComentarios'
+]);

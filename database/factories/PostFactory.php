@@ -20,7 +20,7 @@ class PostFactory extends Factory
             'title' => $this->faker->sentence,
             'legend' => $this->faker->sentence,
             'description' => $this->faker->text(255),
-            'img' => 'http://localhost/images/post/image_1.webp',
+            'img' => 'image_1.webp',
             'route' => 'Cambia esto perroooooo',
             'idUser' => rand(1,10),
         ];
