@@ -25,8 +25,8 @@ Route::controller(App\Http\Controllers\Api\ComentController::class)->group(funct
 });
 
 Route::controller(App\Http\Controllers\Api\TestimonialController::class)->group(function () {
-    Route::get('testimonial', 'obtenerTestimonios');
-    Route::post('coment', 'addComent');
+    Route::get('testimonial', 'getTestimonials');
+    Route::post('testimonial', 'createTestimonial');
     Route::post('coment/edit/{id_coment}', 'editComent');
     Route::post('coment/delete/{id_coment}', 'deleteComent');
 });
