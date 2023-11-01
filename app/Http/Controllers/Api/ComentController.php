@@ -60,4 +60,26 @@ class ComentController extends Controller
         ]);
         
     }
+
+    public function deleteComent(Request $request, $id_coment){
+        $coment = Coment::find($id_coment);
+        $user = User::where('cookie',$request->cookie)->first();
+        //La cookie que me está mandando, corresponde con la cookie del creador del comentario?
+        if($user == null){
+            return response()->json([
+                'success' => false,
+            ]);
+        }
+        if($coment->idUser == $user->id){
+            Coment::destroy($id_coment);
+            $success = true;
+        }else {
+            $success = false;
+            
+        }
+        return response()->json([
+            'success' => $success,
+        ]);
+        
+    }
 }
