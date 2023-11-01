@@ -1,6 +1,7 @@
 <?php
 use App\Http\Controllers\Api\V1\UserController;
 use App\Http\Controllers\Api\LoginController;
+use App\Http\Controllers\TestimonialController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -18,6 +19,13 @@ Route::get('slider', [
 
 Route::controller(App\Http\Controllers\Api\ComentController::class)->group(function () {
     Route::get('coment/{id_post}', 'obtenerComentarios');
+    Route::post('coment', 'addComent');
+    Route::post('coment/edit/{id_coment}', 'editComent');
+    Route::post('coment/delete/{id_coment}', 'deleteComent');
+});
+
+Route::controller(App\Http\Controllers\Api\TestimonialController::class)->group(function () {
+    Route::get('testimonial', 'obtenerTestimonios');
     Route::post('coment', 'addComent');
     Route::post('coment/edit/{id_coment}', 'editComent');
     Route::post('coment/delete/{id_coment}', 'deleteComent');
