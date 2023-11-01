@@ -20,3 +20,13 @@ Route::get('coment/{id_post}', [
     App\Http\Controllers\Api\ComentController::class,
     'obtenerComentarios'
 ]);
+
+Route::post('coment', [
+    App\Http\Controllers\Api\ComentController::class,
+    'addComent'
+]);
+
+Route::patch('coment', [
+    App\Http\Controllers\Api\ComentController::class,
+    'editComent'
+]);
