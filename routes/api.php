@@ -19,5 +19,5 @@ Route::get('slider', [
 Route::controller(App\Http\Controllers\Api\ComentController::class)->group(function () {
     Route::get('coment/{id_post}', 'obtenerComentarios');
     Route::post('coment', 'addComent');
-    Route::put('coment/{id_coment}', 'editComent');
+    Route::post('coment/edit/{id_coment}', 'editComent');
 });
