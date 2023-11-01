@@ -7,5 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Coment extends Model
 {
+    protected $fillable = [
+        'idUSer',
+        'idPost',
+        'contet',
+        'status'
+    ];
     use HasFactory;
 }

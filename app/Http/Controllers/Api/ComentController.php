@@ -36,8 +36,8 @@ class ComentController extends Controller
         ]);
     }
 
-    public function editComent(Request $request){
-        $coment = Coment::find($request->id_coment);
+    public function editComent(Request $request, $id_coment){
+        $coment = Coment::find($id_coment);
         $user = User::where('cookie',$request->cookie)->first();
         //La cookie que me está mandando, corresponde con la cookie del creador del comentario?
         if($coment->idUser == $user->id){
