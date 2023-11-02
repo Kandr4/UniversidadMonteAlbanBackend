@@ -74,8 +74,8 @@ class TestimonialController extends Controller
         $testimony->save();
     }
 
-    public function deleteTestimony(Request $request){
-        $testimony = Testimonial::find($request->id_testimonial);
+    public function deleteTestimony(Request $request, $id_testimony){
+        $testimony = Testimonial::find($id_testimony);
         $user = User::where('cookie',$request->cookie)->first();
         if ($testimony->idUser == $user->id) {
             $testimony->delete();
