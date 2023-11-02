@@ -7,9 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Testimonial;
 use App\Models\User;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\File;
 use Intervention\Image\ImageManagerStatic as Image;
-
 
 class TestimonialController extends Controller
 {
@@ -23,6 +21,10 @@ class TestimonialController extends Controller
     }
 
     public function createTestimonial(Request $request){
+        $request->validate([
+            'image'=>'required|image'
+        ]);
+        $image = $request->file('image');
         $newTestimonial = new Testimonial();
         $user = User::where('cookie',$request->cookie)->first();
         $newTestimonial->name = $request->name;
@@ -31,7 +33,7 @@ class TestimonialController extends Controller
         $newTestimonial->content = $request->testimonial;
         $newTestimonial->status = $request->relation;
         $newTestimonial->idUser = $user->id;
-        $image = $request->file('image');
+        
         $nameFile = uniqid();
         $extension = '.'.$image->getClientOriginalExtension();
         $image->storeAs('public/',$nameFile.$extension);
@@ -50,7 +52,8 @@ class TestimonialController extends Controller
         }
         return response()->json([
             'success' => $success,
-            'testimonio' =>$newTestimonial->toArray(),
         ]);
+        
+        
     }
 }
