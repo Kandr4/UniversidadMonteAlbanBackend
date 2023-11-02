@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Testimonial;
 use App\Models\User;
 use Illuminate\Support\Carbon;
-use Intervention\Image\ImageManagerStatic as Image;
+
 
 class TestimonialController extends Controller
 {
@@ -33,17 +33,8 @@ class TestimonialController extends Controller
         $newTestimonial->content = $request->testimonial;
         $newTestimonial->status = $request->relation;
         $newTestimonial->idUser = $user->id;
-        
-        $nameFile = uniqid();
-        $extension = '.'.$image->getClientOriginalExtension();
-        $image->storeAs('public/',$nameFile.$extension);
-        $storageRoute = storage_path('app/public/'.$nameFile.$extension);
-        $publicRoute = public_path("images/testimonial/$nameFile.webp");
-        $imagenWebp = Image::make($storageRoute);
-        $imagenWebp->encode('webp',90);
-        $imagenWebp->save($publicRoute);
         //$newTestimonial->img = pathinfo($publicRoute, PATHINFO_FILENAME) . '.webp';
-        $newTestimonial->img = $nameFile.'.webp';
+        $newTestimonial->img = Controller::convertToWebp($image,'testimonial');
         if($newTestimonial->save()){
             $success = true;
         }
@@ -53,8 +44,6 @@ class TestimonialController extends Controller
         return response()->json([
             'success' => $success,
         ]);
-        
-        
     }
 
     public function search(Request $request){
@@ -64,5 +53,38 @@ class TestimonialController extends Controller
         ->get();
         $testimoniesArray = $testimoniesFound->toArray();
         return response()->json($testimoniesArray);
+    }
+
+    public function editTestimony(Request $request, $id_testimony){
+        $testimony = Testimonial::find($id_testimony);
+        $user = User::where('cookie',$request->cookie)->first();
+        $testimony->name = $request->name;
+        $testimony->gender = 'M';
+        $testimony->date = Carbon::now()->toDateString();
+        $testimony->content = $request->testimonial;
+        $testimony->status = $request->relation;
+        $testimony->idUser = $user->id;
+        if ($request->hasFile('image')) {
+            $request->validate([
+                'image'=>'required|image'
+            ]);
+            $image = $request->file('image');
+            $testimony->img = Controller::convertToWebp($image,'testimonial');
+        }
+        $testimony->save();
+    }
+
+    public function deleteTestimony(Request $request){
+        $testimony = Testimonial::find($request->id_testimonial);
+        $user = User::where('cookie',$request->cookie)->first();
+        if ($testimony->idUser == $user->id) {
+            $testimony->delete();
+            $success = true;
+        }else{
+            $success = false;
+        }
+        return response()->json([
+            'success'=>$success
+        ]);
     }
 }

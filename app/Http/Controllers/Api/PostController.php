@@ -41,16 +41,7 @@ class PostController extends Controller
             $newPost->route = 'En proceso';
             $newPost->idUser = $user->id;
             $image = $request->file('image');
-            $nameImage = uniqid();
-            $extensionImage = '.'.$image->getClientOriginalExtension();
-            $image->storeAs('public/',$nameImage.$extensionImage);
-            $storageRoute = storage_path('app/public/'.$nameImage.$extensionImage);
-            $publicRoute = public_path("images/post/$nameImage.webp");
-            $imagenWebp = Image::make($storageRoute);
-            $imagenWebp->encode('webp',90);
-            $imagenWebp->save($publicRoute);
-            $newPost->img = $nameImage.'.webp';
-
+            $newPost->img = Controller::convertToWebp($image,'post');
             //Eliminando el archivo de la carpeta storage
             if($newPost->save()){
                 $success = true;

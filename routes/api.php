@@ -29,6 +29,8 @@ Route::controller(App\Http\Controllers\Api\TestimonialController::class)->group(
     Route::get('testimonial', 'getTestimonials');
     Route::get('testimonials/', 'search');
     Route::post('testimonial', 'createTestimonial');
+    Route::post('testimonial/edit/{id_testimonio}');
+    Route::post('delete-testimonial', 'deleteTestimony');
 });
 
 Route::controller(App\Http\Controllers\Api\PostController::class)->group(function () {
