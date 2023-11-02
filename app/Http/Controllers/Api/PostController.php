@@ -11,13 +11,12 @@ use Intervention\Image\ImageManagerStatic as Image;
 class PostController extends Controller
 {
     public function createPost(Request $request){
-        return response('si entra');
-        /*$request->validate([
+        $request->validate([
             'image'=>'required|image'
-        ]);*/
+        ]);
         $newPost = new Post();
         $user = User::where('cookie',$request->cookie)->first();
-        $newPost->title = $request->tile;
+        $newPost->title = $request->title;
         $newPost->legend = $request->legend;
         $newPost->description = $request->description;
         $newPost->route = 'En proceso';
