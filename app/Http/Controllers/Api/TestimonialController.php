@@ -72,6 +72,10 @@ class TestimonialController extends Controller
             $testimony->img = Controller::convertToWebp($image,'testimonial');
         }
         $testimony->save();
+        $success = true;
+        return response()->json([
+            'success' => $success
+        ]);
     }
 
     public function deleteTestimony(Request $request, $id_testimony){

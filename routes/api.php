@@ -29,7 +29,7 @@ Route::controller(App\Http\Controllers\Api\TestimonialController::class)->group(
     Route::get('testimonial', 'getTestimonials');
     Route::get('testimonials/', 'search');
     Route::post('testimonial', 'createTestimonial');
-    Route::post('testimonial/edit/{id_testimonio}');
+    Route::post('testimonial/edit/{id_testimonio}', 'editTestimony');
     Route::post('testimonial/delete/{id_testimony}', 'deleteTestimony');
 });
 
