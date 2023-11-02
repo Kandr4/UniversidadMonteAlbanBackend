@@ -27,6 +27,7 @@ Route::controller(App\Http\Controllers\Api\ComentController::class)->group(funct
 
 Route::controller(App\Http\Controllers\Api\TestimonialController::class)->group(function () {
     Route::get('testimonial', 'getTestimonials');
+    Route::get('testimonials/', 'search');
     Route::post('testimonial', 'createTestimonial');
 });
 

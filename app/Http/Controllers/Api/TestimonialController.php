@@ -56,4 +56,13 @@ class TestimonialController extends Controller
         
         
     }
+
+    public function search(Request $request){
+        $nameToSearch = $request->input('search');
+        $testimoniesFound = Testimonial::select('id', 'img', 'name', 'content', 'status AS relation')
+        ->where('name','like',"%$nameToSearch%")
+        ->get();
+        $testimoniesArray = $testimoniesFound->toArray();
+        return response()->json($testimoniesArray);
+    }
 }
