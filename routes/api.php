@@ -18,11 +18,6 @@ Route::get('slider', [
     'showSlider'
 ]);
 
-Route::get('download/{filename}', [
-    App\Http\Controllers\Api\FileController::class,
-    'download'
-]);
-
 Route::controller(App\Http\Controllers\Api\ComentController::class)->group(function () {
     Route::get('coment/{id_post}', 'obtenerComentarios');
     Route::post('coment', 'addComent');
@@ -41,5 +36,13 @@ Route::controller(App\Http\Controllers\Api\TestimonialController::class)->group(
 Route::controller(App\Http\Controllers\Api\PostController::class)->group(function () {
     Route::post('post', 'createPost');
     Route::post('post/delete/{id_post}', 'deletePost');
+    Route::post('post/edit/{id_post}', 'editPost');
     
 });
+
+Route::get('download/{filename}', [
+    App\Http\Controllers\Api\FileController::class,
+    'download'
+]);
+
+//Modidficaciones para probaer el commit
