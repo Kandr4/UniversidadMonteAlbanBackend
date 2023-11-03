@@ -103,7 +103,7 @@ class PostController extends Controller
     }
 
     public function searchPost(Request $request){
-        $titleToSearch = $request->input('title');
+        $titleToSearch = $request->input('search');
         $testimoniesFound = Post::select('id','title','description','legend','img','route')
         ->where('title','like',"%$titleToSearch%")
         ->get()
@@ -116,9 +116,9 @@ class PostController extends Controller
                 'img' => $item->img,
                 'route' => $item->route, // Añadir solo si no es nulo
             ]);
-        });
-        $testimoniesArray = $testimoniesFound->toArray();
-        return response()->json($testimoniesArray);
+        })
+        ->toArray();
+        return response()->json($testimoniesFound);
     }
 
     public function filemanage($file){
