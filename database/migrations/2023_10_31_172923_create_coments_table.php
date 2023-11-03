@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('content');
             $table->boolean('status');
             $table->foreign('idUser')->references('id')->on('users');
-            $table->foreign('idPost')->references('id')->on('posts');
+            $table->foreign('idPost')->references('id')->on('posts')->onDelete('cascade');
             $table->timestamps();
         });
     }

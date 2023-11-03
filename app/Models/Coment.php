@@ -14,4 +14,9 @@ class Coment extends Model
         'status'
     ];
     use HasFactory;
+    
+    public function post()
+    {
+        return $this->belongsTo(Post::class);
+    }
 }
