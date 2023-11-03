@@ -59,22 +59,27 @@ class TestimonialController extends Controller
     public function editTestimony(Request $request, $id_testimony){
         $testimony = Testimonial::find($id_testimony);
         $user = User::where('cookie',$request->cookie)->first();
-        $testimony->name = $request->name;
-        $testimony->gender = 'M';
-        $testimony->date = Carbon::now()->toDateString();
-        $testimony->content = $request->testimonial;
-        $testimony->status = $request->relation;
-        $testimony->idUser = $user->id;
-        if ($request->hasFile('image')) {
-            $request->validate([
-                'image'=>'required|image'
-            ]);
-            File::delete(public_path("images/testimonial/$testimony->img"));
-            $image = $request->file('image');
-            $testimony->img = Controller::convertToWebp($image,'testimonial');
+        if($user->role >= 2){
+            $testimony->name = $request->name;
+            $testimony->gender = 'M';
+            $testimony->date = Carbon::now()->toDateString();
+            $testimony->content = $request->testimonial;
+            $testimony->status = $request->relation;
+            $testimony->idUser = $user->id;
+            if ($request->hasFile('image')) {
+                $request->validate([
+                    'image'=>'required|image'
+                ]);
+                File::delete(public_path("images/testimonial/$testimony->img"));
+                $image = $request->file('image');
+                $testimony->img = Controller::convertToWebp($image,'testimonial');
+            }
+            $testimony->save();
+            $success = true;
+        }else{
+            $success = false;
         }
-        $testimony->save();
-        $success = true;
+        
         return response()->json([
             'success' => $success
         ]);
@@ -83,7 +88,7 @@ class TestimonialController extends Controller
     public function deleteTestimony(Request $request, $id_testimony){
         $testimony = Testimonial::find($id_testimony);
         $user = User::where('cookie',$request->cookie)->first();
-        if ($testimony->idUser == $user->id) {
+        if($user->role >= 2){
             File::delete(public_path("images/testimonial/$testimony->img"));
             $testimony->delete();
             $success = true;
