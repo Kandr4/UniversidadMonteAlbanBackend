@@ -9,7 +9,7 @@ use App\Models\Post;
 class sliderController extends Controller
 {
     public function showSlider(Request $request){
-        $allPosts = Post::select('id','title','description','legend','img')
+        $allPosts = Post::select('id','title','description','legend','img','route')
         ->get()
         ->map(function ($item) {
             return array_filter([

@@ -51,10 +51,47 @@ class PostController extends Controller
         if($user->role >= 2){
             File::delete(public_path("images/post/$post->img"));
             if (!($post->route === null)) {
-                File::delete(public_path("images/$post->route"));
+                File::delete(public_path("documents/$post->route"));
             }
             $post->delete();
             $success = true;
+        }else{
+            $success = false;
+        }
+        return response()->json([
+            'success'=>$success
+        ]);
+    }
+
+    public function editPost(Request $request, $id_post){
+        $editedPost = Post::find($id_post);
+        $user = User::where('cookie',$request->cookie)->first();
+        if($user->role >= 2){
+            if ($request->hasFile('image')) {
+                $request->validate([
+                    'image'=>'required||image'
+                ]);
+                File::delete(public_path("images/post/$editedPost->img"));
+                $image = $request->file('image');
+                $editedPost->img = Controller::convertToWebp($image,'post');
+            }
+            if ($request->hasFile('file')) {
+                $request->validate([
+                    'file' => 'required|file|mimes:jpg,png,gif,pdf,docx,xlsx,pptx,txt,csv,jpeg,bmp,webp'
+                ]);
+                File::delete(public_path("documents/$editedPost->route"));
+                $editedPost->route = $this->filemanage($request->file('file'));
+            }
+            $editedPost->title = $request->title;
+            $editedPost->legend = $request->legend;
+            $editedPost->description = $request->description;
+            $editedPost->idUser = $user->id;
+            if($editedPost->save()){
+                $success = true;
+            }
+            else{
+                $success = false;
+            }
         }else{
             $success = false;
         }
