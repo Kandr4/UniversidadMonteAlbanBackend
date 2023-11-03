@@ -35,6 +35,6 @@ Route::controller(App\Http\Controllers\Api\TestimonialController::class)->group(
 
 Route::controller(App\Http\Controllers\Api\PostController::class)->group(function () {
     Route::post('post', 'createPost');
-    Route::post('nose', 'panas');
+    Route::post('post/delete/{id_post}', 'deletePost');
     
 });

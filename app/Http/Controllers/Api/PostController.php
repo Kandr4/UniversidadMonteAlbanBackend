@@ -13,31 +13,53 @@ use Illuminate\Support\Facades\Storage;
 class PostController extends Controller
 {
     public function createPost(Request $request){
-        $request->validate([
-            'image'=>'required|image'
-        ]);
         $newPost = new Post();
         $user = User::where('cookie',$request->cookie)->first();
-        $newPost->title = $request->title;
-        $newPost->legend = $request->legend;
-        $newPost->description = $request->description;
-        $newPost->idUser = $user->id;
-        $image = $request->file('image');
-        $newPost->img = Controller::convertToWebp($image,'post');
-        if ($request->hasFile('file')) {
+        if ($user->role >=2) {
             $request->validate([
-                'file' => 'required|file|mimes:jpg,png,gif,pdf,docx,xlsx,pptx,txt,csv,jpeg,bmp,webp'
+                'image'=>'required|image'
             ]);
-            $newPost->route = $this->filemanage($request->file('file'));
-        }
-        if($newPost->save()){
-            $success = true;
-        }
-        else{
+            if ($request->hasFile('file')) {
+                $request->validate([
+                    'file' => 'required|file|mimes:jpg,png,gif,pdf,docx,xlsx,pptx,txt,csv,jpeg,bmp,webp'
+                ]);
+                $newPost->route = $this->filemanage($request->file('file'));
+            }
+            $newPost->title = $request->title;
+            $newPost->legend = $request->legend;
+            $newPost->description = $request->description;
+            $newPost->idUser = $user->id;
+            $image = $request->file('image');
+            $newPost->img = Controller::convertToWebp($image,'post');
+            if($newPost->save()){
+                $success = true;
+            }
+            else{
+                $success = false;
+            }
+        }else{
             $success = false;
         }
         return response()->json([
             'success' => $success,
+        ]);
+    }
+
+    public function deletePost(Request $request, $id_post){
+        $post = Post::find($id_post);
+        $user = User::where('cookie',$request->cookie)->first();
+        if($user->role >= 2){
+            File::delete(public_path("images/post/$post->img"));
+            if (!($post->route === null)) {
+                File::delete(public_path("images/$post->route"));
+            }
+            $post->delete();
+            $success = true;
+        }else{
+            $success = false;
+        }
+        return response()->json([
+            'success'=>$success
         ]);
     }
 
