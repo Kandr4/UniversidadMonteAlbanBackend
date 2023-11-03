@@ -4,6 +4,8 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Carbon\Carbon;
+use App\Models\User;
+
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Testimonial>
@@ -27,7 +29,7 @@ class TestimonialFactory extends Factory
             'content' => 'Frase generica para los testimonios',
             'date' => Carbon::now()->toDateString(),
             'img' => 'imgTestimonio.webp',
-            'idUser'=> rand(1,2)
+            'idUser'=> User::inRandomOrder()->first(),
         ];
     }
 }

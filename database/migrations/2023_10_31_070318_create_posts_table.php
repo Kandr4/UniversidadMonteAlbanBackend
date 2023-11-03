@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('legend');
             $table->string('description');
             $table->string('img');
-            $table->string('route');
+            $table->string('route')->nullable();
             $table->unsignedBigInteger('idUser');
             $table->timestamps();
             $table->foreign('idUser')->references('id')->on('users');
