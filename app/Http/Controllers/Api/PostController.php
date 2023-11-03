@@ -79,7 +79,9 @@ class PostController extends Controller
                 $request->validate([
                     'file' => 'required|file|mimes:jpg,png,gif,pdf,docx,xlsx,pptx,txt,csv,jpeg,bmp,webp'
                 ]);
-                File::delete(public_path("documents/$editedPost->route"));
+                if (!($editedPost->route === null)) {
+                    File::delete(public_path("documents/$editedPost->route"));
+                }
                 $editedPost->route = $this->filemanage($request->file('file'));
             }
             $editedPost->title = $request->title;
