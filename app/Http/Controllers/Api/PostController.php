@@ -102,6 +102,25 @@ class PostController extends Controller
         ]);
     }
 
+    public function searchPost(Request $request){
+        $titleToSearch = $request->input('title');
+        $testimoniesFound = Post::select('id','title','description','legend','img','route')
+        ->where('title','like',"%$titleToSearch%")
+        ->get()
+        ->map(function ($item) {
+            return array_filter([
+                'id' => $item->id,
+                'title' => $item->title,
+                'description' => $item->description,
+                'legend' => $item->legend,
+                'img' => $item->img,
+                'route' => $item->route, // Añadir solo si no es nulo
+            ]);
+        });
+        $testimoniesArray = $testimoniesFound->toArray();
+        return response()->json($testimoniesArray);
+    }
+
     public function filemanage($file){
         $nameFile = uniqid();
         $extensionFile = '.' . $file->getClientOriginalExtension();

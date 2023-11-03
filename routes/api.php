@@ -35,6 +35,7 @@ Route::controller(App\Http\Controllers\Api\TestimonialController::class)->group(
 
 Route::controller(App\Http\Controllers\Api\PostController::class)->group(function () {
     Route::post('post', 'createPost');
+    Route::get('posts', 'searchPost');
     Route::post('post/delete/{id_post}', 'deletePost');
     Route::post('post/edit/{id_post}', 'editPost');
     
