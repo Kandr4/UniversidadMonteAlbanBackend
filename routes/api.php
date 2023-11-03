@@ -18,6 +18,11 @@ Route::get('slider', [
     'showSlider'
 ]);
 
+Route::get('download/{filename}', [
+    App\Http\Controllers\Api\FileController::class,
+    'download'
+]);
+
 Route::controller(App\Http\Controllers\Api\ComentController::class)->group(function () {
     Route::get('coment/{id_post}', 'obtenerComentarios');
     Route::post('coment', 'addComent');
