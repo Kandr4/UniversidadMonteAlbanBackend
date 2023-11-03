@@ -6,6 +6,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use Intervention\Image\ImageManagerStatic as Image;
+use Illuminate\Support\Facades\File;
 
 class Controller extends BaseController
 {
@@ -18,8 +19,15 @@ class Controller extends BaseController
         $storageRoute = storage_path('app/public/'.$nameFile.$extension);
         $publicRoute = public_path("images/$type/$nameFile.webp");
         $imagenWebp = Image::make($storageRoute);
-        $imagenWebp->encode('webp',90);
+        $imagenWebp->orientate();
+        if ($type == 'testimonial') {
+            $quality = 50;
+        }else {
+            $quality = 80;
+        }
+        $imagenWebp->encode('webp',$quality);
         $imagenWebp->save($publicRoute);
+        File::delete($storageRoute);
         return ($nameFile.'.webp');
     }
 }

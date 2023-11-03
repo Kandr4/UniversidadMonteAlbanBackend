@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Testimonial;
 use App\Models\User;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\File;
 
 
 class TestimonialController extends Controller
@@ -68,6 +69,7 @@ class TestimonialController extends Controller
             $request->validate([
                 'image'=>'required|image'
             ]);
+            File::delete(public_path("images/testimonial/$testimony->img"));
             $image = $request->file('image');
             $testimony->img = Controller::convertToWebp($image,'testimonial');
         }
@@ -82,6 +84,7 @@ class TestimonialController extends Controller
         $testimony = Testimonial::find($id_testimony);
         $user = User::where('cookie',$request->cookie)->first();
         if ($testimony->idUser == $user->id) {
+            File::delete(public_path("images/testimonial/$testimony->img"));
             $testimony->delete();
             $success = true;
         }else{
