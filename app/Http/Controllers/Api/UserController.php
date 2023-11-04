@@ -45,12 +45,35 @@ class UserController extends Controller
         ]);
     }
 
+    public function changeRole(Request $request, $id_user){
+        $user = User::find($id_user);
+        $admin = User::where('cookie',$request->cookie)->first();
+        if ($admin) {
+            if ($admin->role == 3) {
+                $user->role = $request->role;
+                $user->save();
+                $success = true;
+            }else {
+                $success = false;
+            }
+        }else{
+            $success = false;
+        }
+        return response()->json([
+            'success'=> $success,
+        ]);
+    }
+
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        //
+    public function searchUser(Request $request){
+        $username = $request->input('search');
+        $usersFound = User::select('id','username','role')
+        ->where('username','like',"%$username%")
+        ->get()
+        ->toArray();
+        return response()->json($usersFound);
     }
 
     /**
