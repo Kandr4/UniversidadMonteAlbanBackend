@@ -17,8 +17,7 @@ return new class extends Migration
             $table->string('password');
             $table->integer('role');
             $table->boolean('verified');
-            $table->string('cookie')->unique();
-            $table->rememberToken();
+            $table->string('cookie')->unique()->nullable();
             $table->timestamps();
         });
     }

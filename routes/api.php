@@ -41,6 +41,10 @@ Route::controller(App\Http\Controllers\Api\PostController::class)->group(functio
     
 });
 
+Route::controller(App\Http\Controllers\Api\UserController::class)->group(function(){
+    Route::post('register','registerUser');
+});
+
 Route::get('download/{filename}', [
     App\Http\Controllers\Api\FileController::class,
     'download'

@@ -19,7 +19,6 @@ class DatabaseSeeder extends Seeder
             'role' => 2,
             'verified' => true,
             'cookie' => Str::random(40),
-            'remember_token' => Str::random(10),
         ]);
         
         \App\Models\User::factory()->create([
@@ -28,7 +27,6 @@ class DatabaseSeeder extends Seeder
             'role' => 2,
             'verified' => true,
             'cookie' => Str::random(40),
-            'remember_token' => Str::random(10),
         ]);
         
         \App\Models\User::factory()->create([
@@ -37,7 +35,6 @@ class DatabaseSeeder extends Seeder
             'role' => 3,
             'verified' => true,
             'cookie' => Str::random(40),
-            'remember_token' => Str::random(10),
         ]);
         
         \App\Models\User::factory()->create([
@@ -46,7 +43,6 @@ class DatabaseSeeder extends Seeder
             'role' => 1,
             'verified' => true,
             'cookie' => Str::random(40),
-            'remember_token' => Str::random(10),
         ]);
 
         \App\Models\Post::factory(10)->create();

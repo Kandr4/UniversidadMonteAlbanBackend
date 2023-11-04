@@ -27,7 +27,6 @@ class UserFactory extends Factory
             'role' => rand(1,3),   
             'verified' => $this->faker->boolean,
             'cookie' => $this->faker->sentence(5),
-            'remember_token' => Str::random(10),
         ];
     }
 

@@ -1,9 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -18,9 +21,28 @@ class UserController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-        //
+    public function registerUser(Request $request){
+        try {
+            $this->validate($request, [
+                'username' => 'required|unique:users',
+            ]);
+            $newUser = new User();
+            $newUser->username = $request->username;
+            $newUser->password = $request->password;
+            $newUser->role = 1;
+            $cookie = Str::random(40);
+            $newUser->cookie = $cookie;
+            $newUser->verified = true;
+            $newUser->save();
+            $success = true;
+        } catch (ValidationException $e) {
+            $success = false;
+            $cookie = '';
+        }
+        return response()->json([
+            'success'=> $success,
+            'cookie'=>$cookie,
+        ]);
     }
 
     /**
