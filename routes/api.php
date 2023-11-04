@@ -45,6 +45,7 @@ Route::controller(App\Http\Controllers\Api\UserController::class)->group(functio
     Route::get('users', 'searchUser');
     Route::post('register','registerUser');
     Route::post('user/change-role/{id_usuario}', 'changeRole');
+    Route::post('user/delete/{id_user}', 'deleteUser');
 });
 
 Route::get('download/{filename}', [

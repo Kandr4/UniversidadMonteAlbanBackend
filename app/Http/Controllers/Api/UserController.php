@@ -76,6 +76,24 @@ class UserController extends Controller
         return response()->json($usersFound);
     }
 
+    public function deleteUser(Request $request, $id_user){
+        $user = User::find($id_user);
+        $admin = User::where('cookie',$request->cookie)->first();
+        if ($admin) {
+            if ($admin->role == 3) {
+                $user->delete();
+                $success = true;
+            }else{
+                $success = false;
+            }
+        }else{
+            $success = false;
+        }
+        return response()->json([
+            'success'=> $success
+        ]);
+    }
+
     /**
      * Display the specified resource.
      */

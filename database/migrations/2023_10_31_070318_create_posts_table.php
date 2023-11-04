@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('route')->nullable();
             $table->unsignedBigInteger('idUser');
             $table->timestamps();
-            $table->foreign('idUser')->references('id')->on('users');
+            $table->foreign('idUser')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

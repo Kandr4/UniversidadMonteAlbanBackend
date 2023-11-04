@@ -40,5 +40,17 @@ class User extends Authenticatable
      *
      * @var array
      */
-    
+
+    public function coments()
+    {
+        return $this->hasMany(Coment::class);
+    }
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
+    public function testimonials()
+    {
+        return $this->hasMany(Testimonial::class);
+    }
 }
