@@ -36,6 +36,7 @@ Route::controller(App\Http\Controllers\Api\TestimonialController::class)->group(
 Route::controller(App\Http\Controllers\Api\PostController::class)->group(function () {
     Route::post('post', 'createPost');
     Route::get('posts', 'searchPost');
+    Route::get('post', 'getPost');
     Route::post('post/delete/{id_post}', 'deletePost');
     Route::post('post/edit/{id_post}', 'editPost');
     
@@ -47,6 +48,13 @@ Route::controller(App\Http\Controllers\Api\UserController::class)->group(functio
     Route::post('user/delete/{id_user}', 'deleteUser');
     Route::post('user/change-role/{id_usuario}', 'changeRole');
     Route::post('change-password', 'changePassword');
+});
+
+Route::controller(App\Http\Controllers\Api\EventController::class)->group(function(){
+    Route::post('event', 'createEvent');
+    Route::get('events', 'searchEvent');
+    Route::post('event/delete/{id_event}', 'deleteEvent');
+    Route::post('event/edit/{id_event}', 'editEvent');
 });
 
 Route::get('download/{filename}', [

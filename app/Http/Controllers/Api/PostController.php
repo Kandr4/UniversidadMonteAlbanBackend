@@ -83,6 +83,9 @@ class PostController extends Controller
                 }
                 $editedPost->route = $this->filemanage($request->file('file'));
             }
+            if ($request->has('eliminarArchivo')) {
+                File::delete(public_path("documents/$editedPost->route"));
+            }
             $editedPost->title = $request->title;
             $editedPost->legend = $request->legend;
             $editedPost->description = $request->description;
@@ -118,6 +121,15 @@ class PostController extends Controller
         })
         ->toArray();
         return response()->json($testimoniesFound);
+    }
+
+    public function getPost(Request $request){
+        $post = Post::find($request->input('id_post'));
+        if($post){
+            return response()->json($post->toArray());
+        }else{
+            return response()->json(null);
+        }
     }
 
     public function filemanage($file){

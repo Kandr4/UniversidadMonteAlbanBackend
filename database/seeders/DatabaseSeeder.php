@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
     {
         \App\Models\User::factory()->create([
             'username' => 'Roger',
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+            'password' => 'password',
             'role' => 2,
             'verified' => true,
             'cookie' => Str::random(40),
@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
         
         \App\Models\User::factory()->create([
             'username' => 'Gixarde3',
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+            'password' => 'Und3rt4le!',
             'role' => 2,
             'verified' => true,
             'cookie' => Str::random(40),
@@ -31,7 +31,7 @@ class DatabaseSeeder extends Seeder
         
         \App\Models\User::factory()->create([
             'username' => 'superAdmin',
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+            'password' => 'password',
             'role' => 3,
             'verified' => true,
             'cookie' => Str::random(40),
@@ -39,7 +39,7 @@ class DatabaseSeeder extends Seeder
         
         \App\Models\User::factory()->create([
             'username' => 'normalUser',
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+            'password' => 'password',
             'role' => 1,
             'verified' => true,
             'cookie' => Str::random(40),
@@ -48,6 +48,7 @@ class DatabaseSeeder extends Seeder
         \App\Models\Post::factory(10)->create();
         \App\Models\Coment::factory(20)->create();
         \App\Models\Testimonial::factory(5)->create();
+        \App\Models\Event::factory(5)->create();
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
