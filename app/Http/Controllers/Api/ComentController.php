@@ -70,7 +70,7 @@ class ComentController extends Controller
                 'success' => false,
             ]);
         }
-        if($coment->idUser == $user->id){
+        if($coment->idUser == $user->id || $user->role >= 2) {
             Coment::destroy($id_coment);
             $success = true;
         }else {
