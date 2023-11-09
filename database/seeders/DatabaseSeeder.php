@@ -61,6 +61,17 @@ class DatabaseSeeder extends Seeder
         \App\Models\Coment::factory(20)->create();
         \App\Models\Testimonial::factory(5)->create();
         \App\Models\Event::factory(5)->create();
+
+        \App\Models\Career::factory()->create([
+            'name' => 'Licenciatura en memes',
+            'graduationProfile' => 'Este es el texto del perfil de egreso que sera mostrado de la carrera',
+        ]);
+        \App\Models\Career::factory()->create([
+            'name' => 'Licenciatura en Psicologia',
+            'graduationProfile' => 'Este es el texto del perfil de egreso que sera mostrado de la carrera',
+        ]);
+        \App\Models\Subject::factory(10)->create();
+        
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',

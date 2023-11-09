@@ -33,6 +33,7 @@ class LoginController extends Controller
             ->json([
                 'cookie'=> $token,
                 'role'=> $usuario->role, 
+                'username' => $usuario->username
             ]);
         }
         //Login false

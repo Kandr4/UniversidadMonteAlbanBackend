@@ -57,6 +57,12 @@ Route::controller(App\Http\Controllers\Api\EventController::class)->group(functi
     Route::post('event/edit/{id_event}', 'editEvent');
 });
 
+Route::controller(App\Http\Controllers\Api\CareerController::class)->group(function(){
+    Route::post('career', 'createCareer');
+    Route::get('careers', 'getCareers');
+});
+
+
 Route::get('download/{filename}', [
     App\Http\Controllers\Api\FileController::class,
     'download'

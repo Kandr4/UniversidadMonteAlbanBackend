@@ -48,6 +48,7 @@ class UserController extends Controller
         return response()->json([
             'success'=> $success,
             'cookie'=>$cookie,
+            'username'=>$request->username
         ]);
     }
 
