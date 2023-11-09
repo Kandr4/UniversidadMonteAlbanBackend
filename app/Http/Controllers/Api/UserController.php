@@ -27,14 +27,18 @@ class UserController extends Controller
         try {
             $this->validate($request, [
                 'username' => 'required|unique:users',
+                'email' => 'required|email|unique:users'
             ]);
             $newUser = new User();
             $newUser->username = $request->username;
             $newUser->password = $request->password;
+            $newUser->email = $request->email;
+            $newUser->name = $request->name;
+            $newUser->lastName = $request->lastName;
+            $newUser->birthdate = $request->birthday;
             $newUser->role = 1;
             $cookie = Str::random(40);
             $newUser->cookie = $cookie;
-            $newUser->verified = true;
             $newUser->save();
             $success = true;
         } catch (ValidationException $e) {

@@ -30,7 +30,7 @@ class TestimonialController extends Controller
         $user = User::where('cookie',$request->cookie)->first();
         $newTestimonial->name = $request->name;
         $newTestimonial->gender = 'M';
-        $newTestimonial->date = Carbon::now()->toDateString();
+        $newTestimonial->date = $request->date;
         $newTestimonial->content = $request->testimonial;
         $newTestimonial->status = $request->relation;
         $newTestimonial->idUser = $user->id;
@@ -49,7 +49,7 @@ class TestimonialController extends Controller
 
     public function search(Request $request){
         $nameToSearch = $request->input('search');
-        $testimoniesFound = Testimonial::select('id', 'img', 'name', 'content', 'status AS relation')
+        $testimoniesFound = Testimonial::select('id', 'img', 'name', 'content', 'status AS relation', 'date')
         ->where('name','like',"%$nameToSearch%")
         ->get();
         $testimoniesArray = $testimoniesFound->toArray();
@@ -62,7 +62,7 @@ class TestimonialController extends Controller
         if($user->role >= 2){
             $testimony->name = $request->name;
             $testimony->gender = 'M';
-            $testimony->date = Carbon::now()->toDateString();
+            $testimony->date = $request->date;
             $testimony->content = $request->testimonial;
             $testimony->status = $request->relation;
             $testimony->idUser = $user->id;

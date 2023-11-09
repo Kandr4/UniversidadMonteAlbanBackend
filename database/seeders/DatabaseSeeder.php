@@ -15,33 +15,45 @@ class DatabaseSeeder extends Seeder
     {
         \App\Models\User::factory()->create([
             'username' => 'Roger',
+            'email' => 'roger@gmail.com',
+            'name' => 'Rogelio',
+            'lastName' => 'Elizalde Diaz',
+            'birthdate' => '2003-03-23',
             'password' => 'password',
             'role' => 2,
-            'verified' => true,
             'cookie' => Str::random(40),
         ]);
         
         \App\Models\User::factory()->create([
             'username' => 'Gixarde3',
             'password' => 'Und3rt4le!',
+            'email' => 'chavez@gmail.com',
+            'name' => 'Marco',
+            'lastName' => 'Chávez Rodríguez',
+            'birthdate' => '2003-03-23',
             'role' => 2,
-            'verified' => true,
             'cookie' => Str::random(40),
         ]);
         
         \App\Models\User::factory()->create([
             'username' => 'superAdmin',
             'password' => 'password',
+            'email' => 'superAdmin@gmail.com',
+            'name' => 'Super',
+            'lastName' => 'Admin',
+            'birthdate' => '2003-03-23',
             'role' => 3,
-            'verified' => true,
             'cookie' => Str::random(40),
         ]);
         
         \App\Models\User::factory()->create([
             'username' => 'normalUser',
             'password' => 'password',
+            'email' => 'user@gmail.com',
+            'name' => 'User',
+            'lastName' => 'Common',
+            'birthdate' => '2003-03-23',
             'role' => 1,
-            'verified' => true,
             'cookie' => Str::random(40),
         ]);
 
