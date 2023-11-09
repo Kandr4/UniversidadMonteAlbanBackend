@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\File;
 class TestimonialController extends Controller
 {
     public function getTestimonials(Request $request){
-        $allTestimonials = Testimonial::select('id', 'img', 'name', 'content', 'status AS relation')
+        $allTestimonials = Testimonial::select('id', 'img', 'name', 'content', 'status AS relation', 'date')
         ->latest('updated_at')
         ->limit(5)
         ->get();        
