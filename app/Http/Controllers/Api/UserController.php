@@ -58,7 +58,7 @@ class UserController extends Controller
      */
     public function searchUser(Request $request){
         $username = $request->input('search');
-        $usersFound = User::select('id','username','role')
+        $usersFound = User::select('id','username','role', 'name', 'lastName', 'email', 'birthdate AS birthDay')
         ->where('username','like',"%$username%")
         ->get()
         ->toArray();

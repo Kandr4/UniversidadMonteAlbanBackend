@@ -9,6 +9,7 @@ use Illuminate\Http\Response;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
@@ -16,9 +17,12 @@ class LoginController extends Controller
         $this->validateLogin($request);
 
         //Login true
-        if (Auth::attempt($request->only('username','password'))) {
+        if (Auth::attempt($request->only('username','password')) || $this->validateEmail($request)) {
             //Obtiene el usuario para obtener su rol
             $usuario = User::where('username',$request->username)->first();
+            if (!$usuario) {
+                $usuario = User::where('email',$request->username)->first();
+            }
             //Crea la sessionCookie
             $token = Str::random(40);
             //$sessionCookie = cookie('cookieSesion',$token,60);
@@ -42,5 +46,13 @@ class LoginController extends Controller
             'username'=>'required',
             'password'=>'required',
         ]);
+    }
+
+    public function validateEmail(Request $request){
+        $user = User::where('email', $request->username)->first();
+        if ($user) {
+            return Hash::check(request('password'), $user->password);
+        }
+        return false;
     }
 }
