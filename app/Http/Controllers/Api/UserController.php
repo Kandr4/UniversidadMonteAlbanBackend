@@ -58,12 +58,26 @@ class UserController extends Controller
      * Store a newly created resource in storage.
      */
     public function searchUser(Request $request){
-        $username = $request->input('search');
-        $usersFound = User::select('id','username','role', 'name', 'lastName', 'email', 'birthdate AS birthDay')
-        ->where('username','like',"%$username%")
-        ->get()
-        ->toArray();
-        return response()->json($usersFound);
+        $username = User::where('username',$request->search)->first();
+        $admin = User::where('cookie',$request->cookie)->first();
+        if ($admin) {
+            if ($admin->role == 3) {
+                $usersFound = User::select('id','username','role', 'name', 'lastName', 'email', 'birthdate AS birthDay')
+                ->where('username','like',"%$username%")
+                ->get()
+                ->toArray();
+                $userssended = $usersFound;
+                $success = true;
+            }else{
+                $success = false;
+            }
+        }else{
+            $success = false;
+        }
+        return response()->json([
+            'users' => $userssended,
+            'success'=> $success
+        ]);
     }
 
     public function deleteUser(Request $request, $id_user){
