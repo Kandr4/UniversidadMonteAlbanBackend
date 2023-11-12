@@ -65,10 +65,12 @@ class DatabaseSeeder extends Seeder
         \App\Models\Career::factory()->create([
             'name' => 'Licenciatura en memes',
             'graduationProfile' => 'Este es el texto del perfil de egreso que sera mostrado de la carrera',
+            'admissionProfile' => 'Perfil de ingreso, el aspirante debe ser un metahumano perron',
         ]);
         \App\Models\Career::factory()->create([
             'name' => 'Licenciatura en Psicologia',
             'graduationProfile' => 'Este es el texto del perfil de egreso que sera mostrado de la carrera',
+            'admissionProfile' => 'Perfil de ingreso, el aspirante debe ser un metahumano perron',
         ]);
         \App\Models\Subject::factory(10)->create();
         

@@ -60,6 +60,7 @@ Route::controller(App\Http\Controllers\Api\EventController::class)->group(functi
 Route::controller(App\Http\Controllers\Api\CareerController::class)->group(function(){
     Route::post('career', 'createCareer');
     Route::get('careers', 'getCareers');
+    Route::get('career/{id}', 'getCarrerById');
 });
 
 

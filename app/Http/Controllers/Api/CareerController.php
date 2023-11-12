@@ -4,18 +4,21 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Career;
+use App\Models\Subject;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Casts\Json;
 
 class CareerController extends Controller
 {
     public function createCareer(Request $request){
-        $admin = User::where('cookie',$request->cookie);
+        $admin = User::where('cookie',$request->cookie)->first();
         if ($admin) {
             if ($admin->role >= 2) {
                 $newCareer = new Career();
                 $newCareer->name = $request->name;
                 $newCareer->graduationProfile = $request->graduationProfile;
+                $newCareer->admissionProfile = $request->admissonProfile;
                 $newCareer->save();
                 $success = true;
             } else {
@@ -32,5 +35,21 @@ class CareerController extends Controller
     public function getCareers(){
         $allCareers = Career::all();
         return response()->json($allCareers->toArray());
+    }
+
+    public function getCarrerById($idCarrer){
+        $career = Career::find($idCarrer);
+        if ($career) {
+            $subjects = Subject::select('semester AS cycle', 'name')->where('idCareer', $idCarrer)->get();
+            return response()->json([
+                'name' => $career->name,
+                'graduationProfile' =>$career->graduationProfile,
+                'admissionProfile' => $career->admissionProfile,
+                'subjects' => $subjects->toArray(),
+            ]);
+        } else {
+            $success = false;
+            return response()->json(['success' => $success]);
+        }
     }
 }
