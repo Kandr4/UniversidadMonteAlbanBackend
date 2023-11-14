@@ -52,4 +52,53 @@ class CareerController extends Controller
             return response()->json(['success' => $success]);
         }
     }
+
+    public function deleteCareer(Request $request, $id){
+        $admin = User::where('cookie', $request->cookie)->first();
+        if ($admin) {
+            if (($admin->role) >=  2){
+                $career = Career::find($id);
+                if ($career) {
+                    $career->delete();
+                    $success = true;
+                }else{
+                    $success = false;
+                }
+            } else {
+                $success = false;
+            }
+            
+        } else {
+            $success = false;
+        }
+        return response()->json([
+            'success' => $success
+        ]);
+    }
+
+    public function editCareer(Request $request, $id){
+        $admin = User::where('cookie', $request->cookie)->first();
+        if ($admin) {
+            if (($admin->role) >=  2){
+                $career = Career::find($id);
+                if ($career) {
+                    $career->name = $request->name;
+                    $career->graduationProfile = $request->graduationProfile;
+                    $career->admissionProfile = $request->admissionProfile;
+                    $career->save();
+                    $success = true;
+                }else{
+                    $success = false;
+                }
+            } else {
+                $success = false;
+            }
+            
+        } else {
+            $success = false;
+        }
+        return response()->json([
+            'success' => $success
+        ]);
+    }
 }
