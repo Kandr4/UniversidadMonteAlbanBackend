@@ -40,7 +40,7 @@ class CareerController extends Controller
     public function getCarrerById($idCarrer){
         $career = Career::find($idCarrer);
         if ($career) {
-            $subjects = Subject::select('semester AS cycle', 'name')->where('idCareer', $idCarrer)->get();
+            $subjects = Subject::select('semester AS cycle', 'name', 'id')->where('idCareer', $idCarrer)->get();
             return response()->json([
                 'name' => $career->name,
                 'graduationProfile' =>$career->graduationProfile,
