@@ -3,28 +3,34 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Career;
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Models\Subject;
+use App\Models\Complaint;
 
-class SubjectController extends Controller
+class ComplaintController extends Controller
 {
-    public function createSubject(Request $request){
-        $admin = User::where('cookie',$request->cookie)->first();
+    public function createComplaint(Request $request){
+        $newComplaint = new Complaint();
+        $newComplaint->name = $request->name;
+        $newComplaint->email = $request->email;
+        $newComplaint->content = $request->content;
+        if ($newComplaint->save()) {
+            $success = true;
+        } else {
+            $success = false;
+        }
+        
+        return response()->json([
+            'success' => $success
+        ]);
+    }
+
+    public function getComplaints(Request $request){
+        $admin = User::where('cookie', $request->cookie)->first();
         if ($admin) {
-            if ($admin->role >= 2) {
-                $newSubject = new Subject();
-                $newSubject->name = $request->name;
-                $newSubject->semester = $request->semester;
-                $career = Career::find($request->idCareer);
-                if($career){
-                    $newSubject->idCareer = $request->idCareer;
-                    $newSubject->save();
-                    $success = true;
-                }else{
-                    $success = false;
-                }
+            if (($admin->role) >=  2){
+                $complaints = Complaint::all();
+                return response()->json($complaints->toArray());
             } else {
                 $success = false;
             }
@@ -36,12 +42,7 @@ class SubjectController extends Controller
         ]);
     }
 
-    public function getSubjects(){
-        $allSubjects = Subject::all();
-        return response()->json($allSubjects->toArray());
-    }
-
-    public function getSubjectById($idSubject){
+    /*public function getSubjectById($idSubject){
         $subject = Subject::find($idSubject);
         if ($subject) {
             return response()->json($subject->toArray());
@@ -51,9 +52,10 @@ class SubjectController extends Controller
         }
     }
 
-    public function searchSubject(Request $request, $name){
-        $subject = Subject::where('name', 'LIKE', "%$name%")->get();
-        return response()->json($subject->toArray());
+    public function searchComplaint(Request $request, $name){
+
+        $complaint = Complaint::where('name', 'LIKE', "%$name%")->get();
+        return response()->json($complaint->toArray());
     }
 
     public function deleteSubject(Request $request, $id){
@@ -103,5 +105,5 @@ class SubjectController extends Controller
         return response()->json([
             'success' => $success
         ]);
-    }
+    }*/
 }

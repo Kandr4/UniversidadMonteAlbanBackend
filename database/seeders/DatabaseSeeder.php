@@ -73,6 +73,7 @@ class DatabaseSeeder extends Seeder
             'admissionProfile' => 'Perfil de ingreso, el aspirante debe ser un metahumano perron',
         ]);
         \App\Models\Subject::factory(10)->create();
+        \App\Models\Complaint::factory(5)->create();
         
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',

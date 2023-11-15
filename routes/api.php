@@ -66,6 +66,24 @@ Route::controller(App\Http\Controllers\Api\CareerController::class)->group(funct
     Route::post('career/edit/{id}', 'editCareer');
 });
 
+Route::controller(App\Http\Controllers\Api\SubjectController::class)->group(function(){
+    Route::post('subject', 'createSubject');
+    Route::get('subjects', 'getSubjects');
+    Route::get('subject/{id}', 'getSubjectById');
+    Route::get('subject/search/{name}', 'searchSubject');
+    Route::post('subject/delete/{id}', 'deleteSubject');
+    Route::post('subject/edit/{id}', 'editSubject');
+});
+
+Route::controller(App\Http\Controllers\Api\ComplaintController::class)->group(function(){
+    Route::post('complaint', 'createComplaint');
+    Route::post('complaints', 'getComplaints');
+    Route::get('complaint/{id}', 'getComplaintById');
+    Route::post('complaint/search/{name}', 'searchComplaint');
+    Route::post('complaint/delete/{id}', 'deleteComplaint');
+    Route::post('complaint/edit/{id}', 'editComplaint');
+});
+
 
 Route::get('download/{filename}', [
     App\Http\Controllers\Api\FileController::class,
