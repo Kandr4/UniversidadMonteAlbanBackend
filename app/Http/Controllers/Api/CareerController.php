@@ -18,7 +18,7 @@ class CareerController extends Controller
                 $newCareer = new Career();
                 $newCareer->name = $request->name;
                 $newCareer->graduationProfile = $request->graduationProfile;
-                $newCareer->admissionProfile = $request->admissonProfile;
+                $newCareer->admissionProfile = $request->admissionProfile;
                 $newCareer->save();
                 $success = true;
             } else {
@@ -51,6 +51,11 @@ class CareerController extends Controller
             $success = false;
             return response()->json(['success' => $success]);
         }
+    }
+
+    public function searchCareer(Request $request, $name){
+        $career = Career::where('name', 'LIKE', "%$name%")->get();
+        return response()->json($career->toArray());
     }
 
     public function deleteCareer(Request $request, $id){

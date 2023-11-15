@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer('semester');
             $table->unsignedBigInteger('idCareer');
             $table->timestamps();
-            $table->foreign('idCareer')->references('id')->on('careers');
+            $table->foreign('idCareer')->references('id')->on('careers')->onDelete('cascade');
         });
     }
 

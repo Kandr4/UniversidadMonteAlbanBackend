@@ -61,7 +61,9 @@ Route::controller(App\Http\Controllers\Api\CareerController::class)->group(funct
     Route::post('career', 'createCareer');
     Route::get('careers', 'getCareers');
     Route::get('career/{id}', 'getCarrerById');
+    Route::get('career/search/{name}', 'searchCareer');
     Route::post('career/delete/{id}', 'deleteCareer');
+    Route::post('career/edit/{id}', 'editCareer');
 });
 
 
