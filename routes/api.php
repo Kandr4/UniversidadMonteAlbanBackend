@@ -78,10 +78,11 @@ Route::controller(App\Http\Controllers\Api\SubjectController::class)->group(func
 Route::controller(App\Http\Controllers\Api\ComplaintController::class)->group(function(){
     Route::post('complaint', 'createComplaint');
     Route::post('complaints', 'getComplaints');
-    Route::get('complaint/{id}', 'getComplaintById');
+    Route::get('complaint/{url}', 'getComplaintByUrl');
     Route::post('complaint/search/{name}', 'searchComplaint');
-    Route::post('complaint/delete/{id}', 'deleteComplaint');
-    Route::post('complaint/edit/{id}', 'editComplaint');
+    Route::post('complaint/delete/{url}', 'deleteComplaint');
+    Route::post('complaint/edit/{url}', 'editComplaint');
+    Route::post('complaint/check/{id}', 'checkComplaint');
 });
 
 

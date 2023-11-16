@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Complaint>
@@ -19,7 +20,8 @@ class ComplaintFactory extends Factory
         return [
             'name' => $this->faker->name(),
             'email' => $this->faker->email(),
-            'content' => $this->faker->text()
+            'content' => $this->faker->text(),
+            'url' => Str::random(40),
         ];
     }
 }

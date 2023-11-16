@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('email');
             $table->string('content');
+            $table->string('url')->unique();
+            $table->boolean('checked')->default(false);
             $table->timestamps();
         });
     }
