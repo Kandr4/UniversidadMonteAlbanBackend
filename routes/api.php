@@ -85,6 +85,17 @@ Route::controller(App\Http\Controllers\Api\ComplaintController::class)->group(fu
     Route::post('complaint/check/{id}', 'checkComplaint');
 });
 
+Route::controller(App\Http\Controllers\Api\AdmissionController::class)->group(function(){
+    Route::post('admission', 'createAdmission');
+    Route::post('admissions', 'getAdmissions');
+    Route::get('admission/{url}', 'getAdmissionByUrl');
+    Route::post('admission/search/{name}', 'searchAdmission');
+    Route::post('admission/delete/{url}', 'deleteAdmission');
+    Route::post('admission/edit/{url}', 'editAdmission');
+    Route::post('admission/response/{id}', 'respondAdmission');
+    Route::post('admission/check/{id}', 'checkAdmission');
+});
+
 
 Route::get('download/{filename}', [
     App\Http\Controllers\Api\FileController::class,

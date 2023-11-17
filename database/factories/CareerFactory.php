@@ -19,6 +19,7 @@ class CareerFactory extends Factory
         return [
             'name' => $this->faker->name(),
             'graduationProfile' => $this->faker->text(200),
+            'admissionProfile' => $this->faker->text(200),
         ];
     }
 }
