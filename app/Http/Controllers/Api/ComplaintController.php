@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Mail\ComplaintMailable;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Complaint;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Mail;
 
 class ComplaintController extends Controller
 {
@@ -17,6 +19,8 @@ class ComplaintController extends Controller
         $newComplaint->content = $request->content;
         $url = Str::random(40);
         $newComplaint->url = $url;
+        $url = "http://127.0.0.1:8000/api/complaint/$url";
+        Mail::to($request->email)->send(new ComplaintMailable($url));
         if ($newComplaint->save()) {
             $success = true;
         } else {
@@ -128,5 +132,13 @@ class ComplaintController extends Controller
         return response()->json([
             'success' => $success
         ]);
+    }
+
+    public function sendEmail(Request $request, $url){
+        $request->validate([
+            'email' => 'required|email'
+        ]);
+
+        Mail::to($$request->email)->send(new \App\Mail\ComplaintMailable($url));
     }
 }
