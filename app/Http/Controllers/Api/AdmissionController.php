@@ -116,7 +116,7 @@ class AdmissionController extends Controller
     }
 
     public function respondAdmission(Request $request){
-        $admin = User::where('cookie',$request->cookie)->firs();
+        $admin = User::where('cookie',$request->cookie)->first();
         if ($admin) {
             if (($admin->role) >= 2) {
                 $admission = Admission::find($request->id);
