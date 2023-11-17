@@ -47,21 +47,10 @@ class AdmissionController extends Controller
     }
 
     public function getAdmissionByUrl(Request $request, $url){
-        $admission = Admission::select('id','name','email','content','idCareer','response')
-        ->where('url',$url)
-        ->first()
-        ->map(function ($item) {
-            return array_filter([
-                'id' => $item->id,
-                'name' => $item->name,
-                'email' => $item->email,
-                'content' => $item->content,
-                'idCareer' => $item->idCareer,
-                'response' => $item->response, // Añadir solo si no es nulo
-            ]);
-        })
-        ->toArray();
-        return response()->json($admission);
+        $admission = Admission::select('id', 'name', 'email', 'content', 'idCareer', 'response')
+        ->where('url', $url)  // Agrega esta línea para filtrar solo si response no es nulo
+        ->first();
+        return response()->json($admission->toArray());
     }
 
     public function deleteAdmission(Request $request, $url){
