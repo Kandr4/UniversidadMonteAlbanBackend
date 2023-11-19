@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sugerencia Monte Albán</title>
-    <link rel="stylesheet" href="css/mail.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -42,7 +41,7 @@
             color: white;
         }
         .accept{
-            background-color: var(--principal);
+            background-color: #2E3092;
             color: white;
             padding: 0.5rem;
             width: auto;
@@ -63,9 +62,13 @@
 <body>
     <main>
         <!-- TODO Mail respuesta enviada -->
-        <img src="{{ $message->embed(public_path() . '/images/mail/logo_azul.png') }}" alt="Logo de la Universidad Monte Albán">
-        <h1>{{ $msg }}</h1>
-        <a href={{$url}} class="accept">Mi sugerencia</a>
+        <div style="text-align: center; padding: 20px;">
+            <img src="{{ $message->embed(public_path() . '/images/mail/logo_azul.png') }}" alt="Logo de la Universidad Monte Albán" style="max-width: 100%;">
+        </div>
+        <h1 style="text-align: center; color: #2E3092;">{{ $msg }}</h1>
+        <div style="text-align: center; margin-top: 20px; margin-bottom: 20px;">
+            <a href="{{ $url }}" style="background-color: #2E3092; color: white; padding: 10px 20px; text-decoration: none; margin-bottom:1rem;">Mi sugerencia</a>
+        </div>
         <p class="aclaracion">Si el enlace no funcion copia y pega este</p>
         <p class="aclaracion">{{ $url }}</p>
         
