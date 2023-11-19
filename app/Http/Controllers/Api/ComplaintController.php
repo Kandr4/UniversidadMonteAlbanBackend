@@ -20,7 +20,7 @@ class ComplaintController extends Controller
         $url = Str::random(40);
         $newComplaint->url = $url;
         $url = "http://127.0.0.1:8000/api/complaint/$url";
-        Mail::to($request->email)->send(new ComplaintMailable($url));
+        Mail::to($request->email)->send(new ComplaintMailable("¡Gracias por tu sugerencia", $url));
         if ($newComplaint->save()) {
             $success = true;
         } else {
@@ -134,11 +134,11 @@ class ComplaintController extends Controller
         ]);
     }
 
-    public function sendEmail(Request $request, $url){
+    /*public function sendEmail(Request $request, $url){
         $request->validate([
             'email' => 'required|email'
         ]);
 
         Mail::to($$request->email)->send(new \App\Mail\ComplaintMailable($url));
-    }
+    }*/
 }

@@ -64,7 +64,7 @@
     <main>
         <!-- TODO Mail respuesta enviada -->
         <img src="{{ $message->embed(public_path() . '/images/mail/logo_azul.png') }}" alt="Logo de la Universidad Monte Albán">
-        <h1>¡Gracias por tu sugerencia!</h1>
+        <h1>{{ $msg }}</h1>
         <a href={{$url}} class="accept">Mi sugerencia</a>
         <p class="aclaracion">Si el enlace no funcion copia y pega este</p>
         <p class="aclaracion">{{ $url }}</p>
