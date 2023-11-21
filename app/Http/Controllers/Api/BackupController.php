@@ -77,4 +77,20 @@ class BackupController extends Controller
         
     }
 
+    public function searchGeneral(Request $request, $date){
+        $admin = User::where('cookie', $request->cookie)->where('role','>=', 2)->first();
+        if ($admin) {
+            $search = User::join('database_logs', 'users.id', '=', 'database_logs.idUser')
+            ->select('database_logs.idUser AS id_usuario', 'users.username', 'database_logs.date','database_logs.operation AS modification')
+            ->get();
+            return response()->json($search->toArray());
+        } else {
+            $success = false;
+            return response()->json([
+                'success' => $success,
+            ]);
+        }
+        
+    }
+
 }

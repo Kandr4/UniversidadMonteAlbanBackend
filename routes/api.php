@@ -102,6 +102,7 @@ Route::controller(App\Http\Controllers\Api\BackupController::class)->group(funct
     Route::post('database', 'uploadBackup');
     Route::post('database/search/username/{username}', 'searchByName');
     Route::post('database/search/date/{date}', 'searchByDate');
+    Route::post('database/search/', 'searchGeneral');
 });
 
 
