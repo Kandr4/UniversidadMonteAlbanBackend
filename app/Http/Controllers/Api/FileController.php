@@ -24,8 +24,10 @@ class FileController extends Controller
     public function backupDownload(Request $request, $cookie){
         $admin = User::where('cookie', $cookie)->where('role', 3)->first();
         if ($admin) {
+            $databaseName = env('DB_DATABASE');
+            $username = env('DB_USERNAME');
             $outputFile = storage_path('app/backupUniversidadMonteAlban.sql');
-            $command = 'C:\xampp\mysql\bin\mysqldump -u root universidadmontealban_bd > '. $outputFile;
+            $command = 'C:\xampp\mysql\bin\mysqldump -u '.$username.' '.$databaseName.' > '. $outputFile;
             exec($command, $output, $exitCode);
             $nameFile = $this->moveToPublic();
             $publicRoute = public_path('database/'.$nameFile);
