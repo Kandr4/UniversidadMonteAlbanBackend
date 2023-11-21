@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
-
+use Illuminate\Support\Facades\Redis;
 
 class UserController extends Controller
 {
@@ -58,25 +58,19 @@ class UserController extends Controller
      * Store a newly created resource in storage.
      */
     public function searchUser(Request $request){
-        $username = User::where('username',$request->search)->first();
-        $admin = User::where('cookie',$request->cookie)->first();
+        $admin = User::where('cookie',$request->cookie)->where('role','>=', 3)->first();
         if ($admin) {
-            if ($admin->role == 3) {
-                $usersFound = User::select('id','username','role', 'name', 'lastName', 'email', 'birthdate AS birthDay')
-                ->where('username','like',"%$username%")
-                ->get()
-                ->toArray();
-                $userssended = $usersFound;
-                $success = true;
-            }else{
-                $success = false;
-            }
+            $usersFound = User::select('id','username','role', 'name', 'lastName', 'email', 'birthdate AS birthDay')
+            ->where('username','LIKE',"%$request->username%")
+            ->get()
+            ->toArray();
+            $success = true;
         }else{
             $success = false;
         }
         return response()->json([
-            'users' => $userssended,
-            'success'=> $success
+            'users' => $usersFound,
+            'success' => $success,
         ]);
     }
 
@@ -140,6 +134,37 @@ class UserController extends Controller
         ]);
     }
 
+    public function searchByCookie(Request $request, $cookie){
+        $user = User::where('cookie',$cookie)->first();
+        if ($user) {
+            return response()->json($user->toArray());
+        } else {
+            return response()->json([
+                'success' => $success=false,
+            ]);
+        }
+    }
+
+    public function editByCookie(Request $request, $cookie){
+        $user = User::where('cookie',$cookie)->first();
+        if ($user) {
+            $user->username = $request->username;
+            $user->email = $request->email;
+            $user->name = $request->name;
+            $user->lastName = $request->lastnames;
+            $user->birthdate = $request->birthday;
+            if ($user->save()) {
+                $success=true;
+            } else {
+                $success=false;
+            }
+        } else {
+            $success=false;
+        }
+        return response()->json([
+            'success' => $success,
+        ]);
+    }
     /**
      * Display the specified resource.
      */

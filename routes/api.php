@@ -48,6 +48,8 @@ Route::controller(App\Http\Controllers\Api\UserController::class)->group(functio
     Route::post('user/delete/{id_user}', 'deleteUser');
     Route::post('user/change-role/{id_usuario}', 'changeRole');
     Route::post('change-password', 'changePassword');
+    Route::get('user/{cookie}', 'searchByCookie');
+    Route::get('user/edit/{cookie}', 'editByCookie');
 });
 
 Route::controller(App\Http\Controllers\Api\EventController::class)->group(function(){
@@ -96,10 +98,21 @@ Route::controller(App\Http\Controllers\Api\AdmissionController::class)->group(fu
     Route::post('admission/check/{id}', 'checkAdmission');
 });
 
+Route::controller(App\Http\Controllers\Api\BackupController::class)->group(function(){
+    Route::post('database', 'uploadBackup');
+    Route::post('database/search/username/{username}', 'searchByName');
+    Route::post('database/search/date/{date}', 'searchByDate');
+});
 
-Route::get('download/{filename}', [
+
+/*Route::get('download/{filename}', [
     App\Http\Controllers\Api\FileController::class,
     'download'
-]);
+]);*/
+
+Route::controller(App\Http\Controllers\Api\FileController::class)->group(function(){
+    Route::get('download/{filename}', 'download');
+    Route::get('database/download/{cookie}', 'backupDownload');
+});
 
 //Modidficaciones para probaer el commit

@@ -60,4 +60,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(Testimonial::class);
     }
+    public function database_logs()
+    {
+        return $this->hasMany(DatabaseLog::class);
+    }
 }

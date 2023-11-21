@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Mail\AdmissionMailable;
 use App\Models\Admission;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Mail;
 
 class AdmissionController extends Controller
 {
@@ -18,6 +20,8 @@ class AdmissionController extends Controller
         $newAdmisssion->idCareer = $request->idCareer;
         $url = Str::random(40);
         $newAdmisssion->url = $url;
+        $url = "http://localhost:3000/admision/$url";
+        Mail::to($request->email)->send(new AdmissionMailable("¡Gracias por tu solicitud de contacto", $url));
         if ($newAdmisssion->save()) {
             $success = true;
         } else {
@@ -124,6 +128,8 @@ class AdmissionController extends Controller
                     $admission->response = $request->response;
                     if($admission->save()){
                         $success = true;
+                        $url = "http://localhost:3000/admision/".$admission->url;
+                        Mail::to($admission->email)->send(new AdmissionMailable("¡Se ha respondido a tu solicitud de contacto", $url));
                     }else{
                         $success = false;
                     }
