@@ -20,7 +20,7 @@ class ComplaintController extends Controller
         $url = Str::random(40);
         $newComplaint->url = $url;
         $url = "http://localhost:3000/sugerencia/$url";
-        Mail::to($request->email)->send(new ComplaintMailable("¡Gracias por tu sugerencia", $url));
+        Mail::to($request->email)->send(new ComplaintMailable("¡Gracias por tu sugerencia!", $url));
         if ($newComplaint->save()) {
             $success = true;
         } else {

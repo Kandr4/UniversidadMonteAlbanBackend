@@ -21,7 +21,7 @@ class AdmissionController extends Controller
         $url = Str::random(40);
         $newAdmisssion->url = $url;
         $url = "http://localhost:3000/admision/$url";
-        Mail::to($request->email)->send(new AdmissionMailable("¡Gracias por tu solicitud de contacto", $url));
+        Mail::to($request->email)->send(new AdmissionMailable("¡Gracias por tu solicitud de contacto!", $url));
         if ($newAdmisssion->save()) {
             $success = true;
         } else {
@@ -129,7 +129,7 @@ class AdmissionController extends Controller
                     if($admission->save()){
                         $success = true;
                         $url = "http://localhost:3000/admision/".$admission->url;
-                        Mail::to($admission->email)->send(new AdmissionMailable("¡Se ha respondido a tu solicitud de contacto", $url));
+                        Mail::to($admission->email)->send(new AdmissionMailable("¡Se ha respondido a tu solicitud de contacto!", $url));
                     }else{
                         $success = false;
                     }
