@@ -49,7 +49,7 @@ Route::controller(App\Http\Controllers\Api\UserController::class)->group(functio
     Route::post('user/change-role/{id_usuario}', 'changeRole');
     Route::post('change-password', 'changePassword');
     Route::get('user/{cookie}', 'searchByCookie');
-    Route::get('user/edit/{cookie}', 'editByCookie');
+    Route::post('user/edit/{cookie}', 'editByCookie');
 });
 
 Route::controller(App\Http\Controllers\Api\EventController::class)->group(function(){
