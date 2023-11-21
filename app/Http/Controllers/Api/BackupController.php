@@ -20,8 +20,10 @@ class BackupController extends Controller
             if ($request->hasFile('sql')) {
                 if ($request->file('sql')->getClientOriginalExtension() == 'sql') {
                     $request->file('sql')->storeAs('backupUniversidadMonteAlban.sql');
+                    $databaseName = env('DB_DATABASE');
+                    $username = env('DB_USERNAME');
                     $outputFile = storage_path('app/backupUniversidadMonteAlban.sql');
-                    $command = 'C:\xampp\mysql\bin\mysql -u root universidadmontealban_bd < '. $outputFile;
+                    $command = 'C:\xampp\mysql\bin\mysqldump -u '.$username.' '.$databaseName.' < '. $outputFile;
                     exec($command, $output, $exitCode);
                     if ($exitCode === 0) {
                         $databaseLog = new DatabaseLog();
