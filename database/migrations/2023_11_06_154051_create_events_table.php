@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('events', function (Blueprint $table) {
             $table->id();
             $table->string('eventName');
-            $table->string('description');
+            $table->text('description');
             $table->date('date');
             $table->integer('type');
             $table->unsignedBigInteger('idPost')->nullable()->default(null);

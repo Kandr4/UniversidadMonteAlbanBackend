@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('idUser');
             $table->unsignedBigInteger('idPost');
-            $table->string('content');
+            $table->text('content');
             $table->boolean('status');
             $table->foreign('idUser')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('idPost')->references('id')->on('posts')->onDelete('cascade');

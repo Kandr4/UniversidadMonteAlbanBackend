@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('gender',1);
             $table->string('status');
-            $table->string('content');
+            $table->text('content');
             $table->date('date');
             $table->string('img');
             $table->unsignedBigInteger('idUser');

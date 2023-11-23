@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('legend');
-            $table->string('description');
+            $table->text('legend');
+            $table->text('description');
             $table->string('img');
             $table->string('route')->nullable();
             $table->unsignedBigInteger('idUser');
