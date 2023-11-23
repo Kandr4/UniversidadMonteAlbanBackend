@@ -23,7 +23,7 @@ class BackupController extends Controller
                     $databaseName = env('DB_DATABASE');
                     $username = env('DB_USERNAME');
                     $outputFile = storage_path('app/backupUniversidadMonteAlban.sql');
-                    $command = 'C:\xampp\mysql\bin\mysqldump -u '.$username.' '.$databaseName.' < '. $outputFile;
+                    $command = 'C:\xampp\mysql\bin\mysql -u '.$username.' '.$databaseName.' < '. $outputFile;
                     exec($command, $output, $exitCode);
                     if ($exitCode === 0) {
                         $databaseLog = new DatabaseLog();
