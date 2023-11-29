@@ -36,7 +36,7 @@ class UserController extends Controller
             $newUser->name = $request->name;
             $newUser->lastName = $request->lastName;
             $newUser->birthdate = $request->birthday;
-            $newUser->role = 1;
+            $newUser->role =  1;
             $cookie = Str::random(40);
             $newUser->cookie = $cookie;
             $newUser->save();
