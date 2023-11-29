@@ -85,6 +85,7 @@ class PostController extends Controller
             }
             if ($request->has('eliminarArchivo')) {
                 File::delete(public_path("documents/$editedPost->route"));
+                $editedPost->route = null;
             }
             $editedPost->title = $request->title;
             $editedPost->legend = $request->legend;
