@@ -20,7 +20,7 @@ class AdmissionController extends Controller
         $newAdmisssion->idCareer = $request->idCareer;
         $url = Str::random(40);
         $newAdmisssion->url = $url;
-        $url = "http://localhost:3000/admision/$url";
+        $url = "https://umontealban.netlify.app/admision/$url";
         Mail::to($request->email)->send(new AdmissionMailable("¡Gracias por tu solicitud de contacto!", $url));
         if ($newAdmisssion->save()) {
             $success = true;

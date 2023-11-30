@@ -19,7 +19,7 @@ class ComplaintController extends Controller
         $newComplaint->content = $request->content;
         $url = Str::random(40);
         $newComplaint->url = $url;
-        $url = "http://localhost:3000/sugerencia/$url";
+        $url = "https://umontealban.netlify.app/sugerencia/$url";
         Mail::to($request->email)->send(new ComplaintMailable("¡Gracias por tu sugerencia!", $url));
         if ($newComplaint->save()) {
             $success = true;
