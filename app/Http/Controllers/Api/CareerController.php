@@ -37,6 +37,11 @@ class CareerController extends Controller
         return response()->json($allCareers->toArray());
     }
 
+    public function getAllCareers(){
+        $allCareers = Career::all();
+        return response()->json($allCareers->toArray());
+    }
+
     public function getCarrerById($idCarrer){
         $career = Career::find($idCarrer);
         if ($career) {
