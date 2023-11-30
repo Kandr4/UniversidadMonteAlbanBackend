@@ -47,13 +47,20 @@ class TestimonialController extends Controller
         ]);
     }
 
-    public function search(Request $request){
-        $nameToSearch = $request->input('search');
+    public function search(Request $request, $name){
         $testimoniesFound = Testimonial::select('id', 'img', 'name', 'content', 'status AS relation', 'date')
-        ->where('name','like',"%$nameToSearch%")
+        ->where('name','like',"%$name%")
         ->get();
         $testimoniesArray = $testimoniesFound->toArray();
         return response()->json($testimoniesArray);
+    }
+
+    public function getAllTestimonials(Request $request){
+        $allTestimonials = Testimonial::select('id', 'img', 'name', 'content', 'status AS relation', 'date')
+        ->latest('updated_at')
+        ->get();        
+        $testimonialsArray = $allTestimonials->toArray();
+        return response()->json($testimonialsArray);
     }
 
     public function editTestimony(Request $request, $id_testimony){

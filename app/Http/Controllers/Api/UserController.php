@@ -57,11 +57,11 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function searchUser(Request $request){
+    public function searchUser(Request $request, $username){
         $admin = User::where('cookie',$request->cookie)->where('role','>=', 3)->first();
         if ($admin) {
             $usersFound = User::select('id','username','role', 'name', 'lastName', 'email', 'birthdate AS birthDay')
-            ->where('username','LIKE',"%$request->username%")
+            ->where('username','LIKE',"%$username%")
             ->get()
             ->toArray();
             $success = true;
@@ -74,6 +74,21 @@ class UserController extends Controller
         ]);
     }
 
+    public function getAllUsers(Request $request){
+        $admin = User::where('cookie',$request->cookie)->where('role','>=', 3)->first();
+        if ($admin) {
+            $usersFound = User::select('id','username','role', 'name', 'lastName', 'email', 'birthdate AS birthDay')
+            ->get()
+            ->toArray();
+            $success = true;
+        }else{
+            $success = false;
+        }
+        return response()->json([
+            'users' => $usersFound,
+            'success' => $success,
+        ]);
+    }
     public function deleteUser(Request $request, $id_user){
         $user = User::find($id_user);
         $admin = User::where('cookie',$request->cookie)->first();
