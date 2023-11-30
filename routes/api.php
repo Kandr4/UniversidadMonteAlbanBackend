@@ -102,13 +102,6 @@ Route::controller(App\Http\Controllers\Api\AdmissionController::class)->group(fu
     Route::post('admission/check/{id}', 'checkAdmission');
 });
 
-Route::controller(App\Http\Controllers\Api\BackupController::class)->group(function(){
-    Route::post('database', 'uploadBackup');
-    Route::post('database/search/username/{username}', 'searchByName');
-    Route::post('database/search/date/{date}', 'searchByDate');
-    Route::post('database/search/', 'searchGeneral');
-});
-
 
 /*Route::get('download/{filename}', [
     App\Http\Controllers\Api\FileController::class,
