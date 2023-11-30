@@ -1,0 +1,94 @@
+# To better understand this file read this:
+# https://docs.ionos.space/docs/github-actions-customization/
+
+name: "Deploy Now: Execute Build"
+
+on:
+  workflow_call:
+    inputs:
+      site-url:
+        required: true
+        type: string
+      branch-id:
+        required: true
+        type: string
+
+env:
+  DEPLOYMENT_FOLDER: ./
+
+jobs:
+# Please do not rename this job
+  build-project:
+    name: build UniversidadMonteAlbanBackend
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      # if you add permissions here this needs to be done in the UniversidadMonteAlbanBackend-orchestration.yaml as well
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+        with:
+          submodules: 'recursive'
+
+      - name: Render templates
+        uses: ionos-deploy-now/template-renderer-action@v2
+        id: template
+        with:
+          input-directory: .deploy-now/UniversidadMonteAlbanBackend
+          output-directory: ${{ env.DEPLOYMENT_FOLDER }}
+          intermediate-data-file: ${{ env.DEPLOYMENT_FOLDER }}/.template-renderer-data
+
+      - name: Setup composer
+        uses: php-actions/composer@v6
+        env:
+          MAIL_ENCRYPTION: tls
+          MAIL_FROM_ADDRESS: no-reply@umontealban.com"
+          MAIL_FROM_NAME: "NO REPLY - Universidad Montealban"
+          MAIL_HOST: smtp.gmail.com
+          MAIL_MAILER: smtp
+          MAIL_PASSWORD: Und3rt4le!
+          MAIL_PORT: 587
+          MAIL_USERNAME: crmo210133@upemor.edu.mx
+        with:
+          php_version: '8.1'
+          version: '2'
+          args: --optimize-autoloader --no-dev
+
+      - name: Build PHP assets
+        env:
+          MAIL_ENCRYPTION: tls
+          MAIL_FROM_ADDRESS: no-reply@umontealban.com"
+          MAIL_FROM_NAME: "NO REPLY - Universidad Montealban"
+          MAIL_HOST: smtp.gmail.com
+          MAIL_MAILER: smtp
+          MAIL_PASSWORD: Und3rt4le!
+          MAIL_PORT: 587
+          MAIL_USERNAME: crmo210133@upemor.edu.mx
+        run: php artisan key:generate --force -n
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: v16.x
+
+      - name: Build Node assets
+        env:
+          CI: true
+          SITE_URL: ${{ inputs.site-url }}
+        run: |
+          npm ci
+          npm run build
+
+# Please do not touch the following action
+      - name: Store deployment content
+        uses: ionos-deploy-now/artifact-action@v1
+        with:
+          api-key: ${{ secrets.IONOS_API_KEY }}
+          service-host: api-us.ionos.space
+          project-id: bd2a923c-d0d2-4664-b1e8-414b6afb0051
+          branch-id: ${{ inputs.branch-id }}
+          version: ${{ github.sha }}
+          folder: ${{ env.DEPLOYMENT_FOLDER }}
+          config-file: .deploy-now/UniversidadMonteAlbanBackend/config.yaml
+          action: upload
