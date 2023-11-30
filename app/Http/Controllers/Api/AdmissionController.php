@@ -128,7 +128,7 @@ class AdmissionController extends Controller
                     $admission->response = $request->response;
                     if($admission->save()){
                         $success = true;
-                        $url = "http://localhost:3000/admision/".$admission->url;
+                        $url = "https://umontealban.netlify.app/admision/".$admission->url;
                         Mail::to($admission->email)->send(new AdmissionMailable("¡Se ha respondido a tu solicitud de contacto!", $url));
                     }else{
                         $success = false;

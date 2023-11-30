@@ -133,12 +133,4 @@ class ComplaintController extends Controller
             'success' => $success
         ]);
     }
-
-    /*public function sendEmail(Request $request, $url){
-        $request->validate([
-            'email' => 'required|email'
-        ]);
-
-        Mail::to($$request->email)->send(new \App\Mail\ComplaintMailable($url));
-    }*/
 }
