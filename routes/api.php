@@ -28,7 +28,7 @@ Route::controller(App\Http\Controllers\Api\ComentController::class)->group(funct
 Route::controller(App\Http\Controllers\Api\TestimonialController::class)->group(function () {
     Route::get('testimonial', 'getTestimonials');
     Route::get('testimonials/{name}', 'search');
-    Route::get('testimonials/', 'getAllTestimonials');
+    Route::get('testimonials', 'getAllTestimonials');
     Route::post('testimonial', 'createTestimonial');
     Route::post('testimonial/edit/{id_testimonio}', 'editTestimony');
     Route::post('testimonial/delete/{id_testimony}', 'deleteTestimony');
@@ -37,7 +37,7 @@ Route::controller(App\Http\Controllers\Api\TestimonialController::class)->group(
 Route::controller(App\Http\Controllers\Api\PostController::class)->group(function () {
     Route::post('post', 'createPost');
     Route::get('posts/{title}', 'searchPost');
-    Route::get('posts/', 'getAllPosts');
+    Route::get('posts', 'getAllPosts');
     Route::get('post', 'getPost');
     Route::post('post/delete/{id_post}', 'deletePost');
     Route::post('post/edit/{id_post}', 'editPost');
@@ -67,7 +67,7 @@ Route::controller(App\Http\Controllers\Api\CareerController::class)->group(funct
     Route::get('careers', 'getCareers');
     Route::get('career/{id}', 'getCarrerById');
     Route::get('career/search/{name}', 'searchCareer');
-    Route::get('career/search/', 'getCareers');
+    Route::get('career/search', 'getCareers');
     Route::post('career/delete/{id}', 'deleteCareer');
     Route::post('career/edit/{id}', 'editCareer');
 });
@@ -77,7 +77,7 @@ Route::controller(App\Http\Controllers\Api\SubjectController::class)->group(func
     Route::get('subjects', 'getSubjects');
     Route::get('subject/{id}', 'getSubjectById');
     Route::get('subject/search/{name}', 'searchSubject');
-    Route::get('subject/search/', 'getSubjects');
+    Route::get('subject/search', 'getSubjects');
     Route::post('subject/delete/{id}', 'deleteSubject');
     Route::post('subject/edit/{id}', 'editSubject');
 });
