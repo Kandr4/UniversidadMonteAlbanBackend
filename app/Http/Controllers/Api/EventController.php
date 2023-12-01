@@ -31,14 +31,18 @@ class EventController extends Controller
                 }
                 $newEvent->save();
                 $success = true;
+                $message = "Evento creado con éxito";
             } else {
                 $success = false;
+                $message = "No tienes permisos para realizar esta acción";
             }
         } else {
             $success = false;
+            $message = "No tienes permisos para realizar esta acción";
         }
         return response()->json([
             'success'=>$success,
+            'message'=>$message,
         ]);
     }
 

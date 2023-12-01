@@ -142,15 +142,6 @@ class PostController extends Controller
         return response()->json($postsFound);
     }
 
-    public function getPost(Request $request){
-        $post = Post::find($request->input('id_post'));
-        if($post){
-            return response()->json($post->toArray());
-        }else{
-            return response()->json(null);
-        }
-    }
-
     public function filemanage($file){
         $nameFile = uniqid();
         $extensionFile = '.' . $file->getClientOriginalExtension();

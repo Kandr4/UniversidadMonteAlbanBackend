@@ -18,13 +18,6 @@ Route::get('slider', [
     'showSlider'
 ]);
 
-Route::controller(App\Http\Controllers\Api\ComentController::class)->group(function () {
-    Route::get('coment/{id_post}', 'obtenerComentarios');
-    Route::post('coment', 'addComent');
-    Route::post('coment/edit/{id_coment}', 'editComent');
-    Route::post('coment/delete/{id_coment}', 'deleteComent');
-});
-
 Route::controller(App\Http\Controllers\Api\TestimonialController::class)->group(function () {
     Route::get('testimonial', 'getTestimonials');
     Route::get('testimonials/{name}', 'search');
@@ -38,7 +31,6 @@ Route::controller(App\Http\Controllers\Api\PostController::class)->group(functio
     Route::post('post', 'createPost');
     Route::get('posts/{title}', 'searchPost');
     Route::get('posts', 'getAllPosts');
-    Route::get('post', 'getPost');
     Route::post('post/delete/{id_post}', 'deletePost');
     Route::post('post/edit/{id_post}', 'editPost');
     
@@ -102,15 +94,8 @@ Route::controller(App\Http\Controllers\Api\AdmissionController::class)->group(fu
     Route::post('admission/check/{id}', 'checkAdmission');
 });
 
-
-/*Route::get('download/{filename}', [
-    App\Http\Controllers\Api\FileController::class,
-    'download'
-]);*/
-
 Route::controller(App\Http\Controllers\Api\FileController::class)->group(function(){
     Route::get('download/{filename}', 'download');
     Route::get('database/download/{cookie}', 'backupDownload');
 });
 
-//Modidficaciones para probaer el commit
