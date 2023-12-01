@@ -21,10 +21,8 @@ class EventController extends Controller
                 $newEvent->date = $request->date;
                 $newEvent->type = $request->type;
                 $newEvent->idUser = $admin->id;
-                if ($request->has('post')) {
-                    if ($request->has('post')) {
-                        $newEvent->idPost = $request->post;
-                    }
+                if ($request->has('post')){
+                    $newEvent->idPost = $request->post;
                 }
                 $newEvent->save();
                 $success = true;
