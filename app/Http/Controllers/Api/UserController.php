@@ -25,30 +25,32 @@ class UserController extends Controller
      */
     public function registerUser(Request $request){
         try {
-            $this->validate($request, [
-                'username' => 'required|unique:users',
-                'email' => 'required|email|unique:users'
-            ]);
-            $newUser = new User();
-            $newUser->username = $request->username;
-            $newUser->password = $request->password;
-            $newUser->email = $request->email;
-            $newUser->name = $request->name;
-            $newUser->lastName = $request->lastName;
-            $newUser->birthdate = $request->birthday;
-            $newUser->role =  1;
-            $cookie = Str::random(40);
-            $newUser->cookie = $cookie;
-            $newUser->save();
-            $success = true;
-        } catch (ValidationException $e) {
+            $admin = User::where('cookie',$request->cookie)->where('role','>=', 3)->first();
+            if ($admin) {
+                $this->validate($request, [
+                    'username' => 'required|unique:users',
+                    'email' => 'required|email|unique:users'
+                ]);
+                $newUser = new User();
+                $newUser->username = $request->username;
+                $newUser->password = $request->password;
+                $newUser->email = $request->email;
+                $newUser->name = $request->name;
+                $newUser->lastName = $request->lastName;
+                $newUser->birthdate = $request->birthday;
+                $newUser->role =  1;
+                $cookie = Str::random(40);
+                $newUser->cookie = $cookie;
+                $newUser->save();
+                $success = true;
+            }else{
+                $success = false;
+            }
+        }catch (ValidationException $e) {
             $success = false;
-            $cookie = '';
         }
         return response()->json([
             'success'=> $success,
-            'cookie'=>$cookie,
-            'username'=>$request->username
         ]);
     }
 
