@@ -62,6 +62,11 @@ class PostController extends Controller
         ]);
     }
 
+
+    public function getPostById(Request $request, $id_post){
+        $post = Post::find($id_post);
+        return response()->json($post->toArray());
+    }
     public function editPost(Request $request, $id_post){
         $editedPost = Post::find($id_post);
         $user = User::where('cookie',$request->cookie)->first();
