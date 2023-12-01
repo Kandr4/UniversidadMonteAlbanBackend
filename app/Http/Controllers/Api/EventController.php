@@ -34,11 +34,11 @@ class EventController extends Controller
                 $message = "Evento creado con éxito";
             } else {
                 $success = false;
-                $message = "No tienes permisos para realizar esta acción 1";
+                $message = "No tienes permisos para realizar esta acción";
             }
         } else {
             $success = false;
-            $message = "No tienes permisos para realizar esta acción 2";
+            $message = "Tu sesión es inválida";
         }
         return response()->json([
             'success'=>$success,
