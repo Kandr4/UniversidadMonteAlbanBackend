@@ -45,6 +45,7 @@ Route::controller(App\Http\Controllers\Api\UserController::class)->group(functio
     Route::post('change-password', 'changePassword');
     Route::get('user/{cookie}', 'searchByCookie');
     Route::post('user/edit/{cookie}', 'editByCookie');
+    Route::post('user/isAdmin', 'isAdmin');
 });
 
 Route::controller(App\Http\Controllers\Api\EventController::class)->group(function(){

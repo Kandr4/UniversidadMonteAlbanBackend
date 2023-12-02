@@ -54,8 +54,21 @@ class UserController extends Controller
         ]);
     }
 
-    
-
+    public function isAdmin(Request $request){
+        $user = User::where('cookie',$request->cookie)->first();
+        if ($user) {
+            if ($user->role >= 3) {
+                $success = true;
+            } else {
+                $success = false;
+            }
+        } else {
+            $success = false;
+        }
+        return response()->json([
+            'success'=> $success,
+        ]);
+    }
     /**
      * Store a newly created resource in storage.
      */
